@@ -1,0 +1,19 @@
+{
+  "name": "javaria_project",
+  "version": "1.0.0",
+  "description": "Chart dashboard",
+  "main": "index.php",
+  "dependencies": {
+    "chart.js": "^2.8.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "Javaria_Project"
+  },
+  "author": "",
+  "license": "ISC"
+}
