@@ -47,3 +47,4 @@ defined('CHART_CONTAINER_MAX_HEIGHT')   or  define('CHART_CONTAINER_MAX_HEIGHT',
 
     $CFG->version = '1.0';
     $CFG->rev = '0';
+

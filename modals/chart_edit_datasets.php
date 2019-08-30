@@ -2,7 +2,7 @@
 
 
 /**
- * Javaria Project
+ * The Javaria Project
  * Copyright © 2019
  * Michel Noel
  * Datalight Analytics
