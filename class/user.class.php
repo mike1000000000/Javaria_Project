@@ -82,6 +82,10 @@ class user
         // Remove password if not changed
         $key = array_search('user_p', array_column($userinfo, 'name'));
         if($key !== false && (str_replace("•", "", $userinfo[$key]['value']) === "" )){unset($userinfo[$key]);}
+        else{
+            $options = array('cost'=>12);
+            $userinfo[$key]['value'] = password_hash($userinfo[$key]['value'],PASSWORD_BCRYPT, $options);
+        }
 
         $wherearray[] = array('type'=>'i','name'=>'id','value'=>$userid);
         $wherearray[] = array('type'=>'i','name'=>'deleted','value'=>'0');
