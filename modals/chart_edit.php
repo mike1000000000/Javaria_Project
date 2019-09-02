@@ -36,7 +36,7 @@ echo call_user_func(function () {
     $modalwriter->title          = mlang_str('MODAL-ADD_CHART_TITLE_ADD', true);
     $modalwriter->footercancel   = mlang_str('CANCEL', true);
     $modalwriter->footeraccept   = mlang_str('ADDCHART', true);
-    $modalwriter->modalsize      = 'modal-lg';
+    $modalwriter->modalsize      = 'modal-xl';
     $modalwriter->acceptfunction = '';
     $modalwriter->includescript = '/modals_js/chart_edit.js';
 

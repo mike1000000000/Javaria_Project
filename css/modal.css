@@ -53,20 +53,6 @@ legend {
     background-color: #3296da
 }
 
-/*.modal-mid{*/
-/*    width: 400px;*/
-/*}*/
-
-
-/*.modal-backdrop.in*/
-/*{*/
-/*    opacity:0.2 !important;*/
-/*}*/
-
-/*.modal.in .modal-dialog {*/
-/*    -webkit-transform: none !important;*/
-/*    -moz-transform: none !important;*/
-/*    -ms-transform: none !important;*/
-/*    -o-transform: none !important;*/
-/*    transform: none !important;*/
-/*}*/
+.modal-xl {
+        width: 980px;
+}
