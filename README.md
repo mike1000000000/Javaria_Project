@@ -1,7 +1,15 @@
 # The Javaria Project
 
-The Javaria Project aims to be an open-source tool published under the ‘Creative Commons Attribution-ShareAlike 4.0 International Public License‘ (https://creativecommons.org/licenses/by-sa/4.0/) to view charts for users and their teams.
+The Javaria Project aims to be an open-source tool published under the ‘Creative Commons Attribution-ShareAlike 4.0 International Public License‘ (https://creativecommons.org/licenses/by-sa/4.0/) for users and their teams to view charts and other blocks in a centralized dashboard.
 
+This project uses the very powerful open source Chart.js (https://www.chartjs.org/) javascript charts.
+
+The product roadmap is to also incorporate reports and possibly simple analytics. 
+
+
+
+Installation:
+--------------
 Works in a LAMP environment. 
 
 Installation is easy - simply clone the files into your Apache server www root directory and copy config.php_example to config.php and input the following variables:
