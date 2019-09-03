@@ -29,3 +29,8 @@ Installation is easy - simply clone the files into your Apache server www root d
 Reload server (typically 'service apache2 reload') and from the CLI and www-root run:
 
     php admin/install.php
+
+
+Reporting issues:
+------------------
+To report a bug please send an email to bugs@datalightanalytics.com - Please include all relevant information in reproducing said bug using the latest version of the project. 
