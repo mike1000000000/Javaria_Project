@@ -27,7 +27,7 @@ include($CFG->path . "/loadclass.php");
 include("tables.php");
 include("defaultDB.php");
 
-$CFG->prefix = $CFG->main_prefix;
+//$CFG->prefix = $CFG->main_prefix;
 
 echo  nl2br( "Installing environment" . PHP_EOL );
 echo  nl2br( "----------------------------" . PHP_EOL .PHP_EOL );
