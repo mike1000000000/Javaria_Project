@@ -1,0 +1,46 @@
+FROM mattrayner/lamp:latest-1804 as Javaria_Project7
+LABEL maintainer="Michel <michel.noel@datalightanalytics.com>" \
+          vendor="Datalight Analytics" \
+		 project="Javaria_Project" \
+		 version="1.0" 
+		 
+# Environment variables
+ENV MYSQL_ROOT_PASSWORD=S0meP@ssW0rd
+ENV CHARTS_DB=docker_db
+
+EXPOSE 80/tcp
+
+# Download the Javaria Project and install the tables. 
+RUN sed -i "/exec supervisord -n/d" run.sh && \
+		echo "if [[ ! -f \"/app/config.php\" ]]; then" >> run.sh && \
+		echo "  echo Retrieving Javaria Project" >> run.sh && \
+		echo "  cd /app" >> run.sh && \
+		echo "  rm /app/index.php" >> run.sh && \
+		echo "  git clone https://github.com/mike1000000000/Javaria_Project.git /app" >> run.sh && \
+		echo "  cp config.php_example config.php" >> run.sh && \
+		echo   sed -i \'s/DB_SERVER = \'\\\'\'\'\\\'\'/DB_SERVER = \'\\\'\'localhost\'\\\'\'/g\' config.php >> run.sh && \
+		echo   sed -i \'s/DB_USERNAME = \'\\\'\'\'\\\'\'/DB_USERNAME = \'\\\'\'root\'\\\'\'/g\' config.php >> run.sh && \
+		echo   sed -i \'s/DB_PASSWORD = \'\\\'\'\'\\\'\'/DB_PASSWORD = \'\\\'\'$MYSQL_ROOT_PASSWORD\'\\\'\'/g\' config.php >> run.sh && \
+		echo   sed -i \'s/DB_DATABASE = \'\\\'\'\'\\\'\'/DB_DATABASE = \'\\\'\'$CHARTS_DB\'\\\'\'/g\' config.php >> run.sh && \
+		echo   sed -i \'s/DB_PORT = \'\\\'\'\'\\\'\'/DB_PORT = \'\\\'\'3306\'\\\'\'/g\' config.php >> run.sh && \
+		echo   sed -i \'s/\\/var\\/www\\/html/\\/app/g\' config.php >> run.sh && \
+		echo   sed -i \'s/local.charts.test/localhost/g\' config.php >> run.sh && \
+		echo "fi" >> run.sh && \
+		echo "if [[ ! -e \"/var/lib/mysql/$CHARTS_DB\" ]]; then" >> run.sh && \
+		echo "  echo Creating DB for Javaria" >> run.sh && \
+		echo "  service mysql start" >> run.sh && \
+		echo "  sleep 5" >> run.sh && \		
+		echo "  mysql -uroot -e \"ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD';\"" >> run.sh && \
+		echo "  mysql -uroot -p$MYSQL_ROOT_PASSWORD -e \"CREATE DATABASE $CHARTS_DB;\"" >> run.sh && \
+		echo "  sleep 5" >> run.sh && \
+		echo "fi" >> run.sh && \
+		echo "if [[ \`mysql -s -p$MYSQL_ROOT_PASSWORD --skip-column-names -e \"SELECT COUNT(DISTINCT table_name) FROM information_schema.columns WHERE table_schema = '$CHARTS_DB';\"\` == '0' ]]; then" >> run.sh && \
+		echo "  service mysql start" >> run.sh && \
+		echo "  sleep 5" >> run.sh && \		
+		echo "  echo Installing tables" >> run.sh && \
+		echo "  php ./admin/install.php" >> run.sh && \
+		echo "  sleep 5" >> run.sh && \
+		echo "  mysqladmin shutdown -p$MYSQL_ROOT_PASSWORD" >> run.sh && \
+		echo "  sleep 5" >> run.sh && \
+		echo "fi" >> run.sh && \
+		echo "exec supervisord -n" >> run.sh
