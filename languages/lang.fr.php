@@ -132,6 +132,24 @@ $langArr['MODAL-ADD_DATASET_SELECT_AGGREGATION_OPTION_AVG'] = 'MOYENNE';
 $langArr['MODAL-ADD_DATASET_SELECT_AGGREGATION_OPTION_COUNT'] = 'NOMBRE';
 $langArr['MODAL-ADD_DATASET_SELECT_AGGREGATION_OPTION_NONE'] = 'AUCUN';
 
+$langArr['MODAL-ADD_DATASET_SELECT_FILTER'] = 'Filtres';
+$langArr['MODAL-ADD_DATASET_BTN_ADD_FILTER'] = 'Ajouter';
+$langArr['MODAL-ADD_DATASET_BTN_EDIT_FILTER'] = 'Modifier';
+$langArr['MODAL-ADD_DATASET_BTN_DEL_FILTER'] = 'Supprimer';
+
+// Modal Filters
+$langArr['MODAL-ADD_DATASET_FILTER_TITLE'] = 'Filtres';
+$langArr['MODAL-ADD_DATASET_FILTER_SELECT_FIELD'] = 'Colonne de table';
+$langArr['MODAL-ADD_DATASET_FILTER_SELECT_EQUATOR'] = 'Type de filtre';
+$langArr['MODAL-ADD_DATASET_FILTER_OPTION_EQUAL'] = 'Égal ( = )';
+$langArr['MODAL-ADD_DATASET_FILTER_OPTION_LESSTHAN'] = 'Moins que ( < )';
+$langArr['MODAL-ADD_DATASET_FILTER_GREATERTHAN'] = 'Plus grand que ( > )';
+$langArr['MODAL-ADD_DATASET_FILTER_OPTION_LESSTHANEQUAL'] = 'Inférieur ou égal à ( <= )';
+$langArr['MODAL-ADD_DATASET_FILTER_GREATERTHANEQUAL'] = 'Plus grand ou égal à ( >= )';
+$langArr['MODAL-ADD_DATASET_FILTER_NOTEQUAL'] = 'Inégal ( != )';
+$langArr['MODAL-ADD_DATASET_FILTER_EMPTY'] = 'Vide ( NULL )';
+$langArr['MODAL-ADD_DATASET_FILTER_TXT_VALUE'] = 'Valeur du filtre';
+
 // Modal add html
 $langArr['MODAL-ADD_HTML_TITLE_ADD'] = 'Bloc HTML';
 $langArr['MODAL-ADD_HTML_TXT_NAME'] = 'Nom';

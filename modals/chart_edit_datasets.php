@@ -42,7 +42,16 @@ echo call_user_func(function () {
     $options['AVG'] = mlang_str('MODAL-ADD_DATASET_SELECT_AGGREGATION_OPTION_AVG', true);
     $options['COUNT'] = mlang_str('MODAL-ADD_DATASET_SELECT_AGGREGATION_OPTION_COUNT', true);
     $options['NONE'] = mlang_str('MODAL-ADD_DATASET_SELECT_AGGREGATION_OPTION_NONE', true);
+
     $formcontent .= $modalwriter->createFormSelectBasic('MODAL-ADD_DATASET_SELECT_AGGREGATION', 'aggregation',$options,null,"static");
+    $formcontent .= $modalwriter->tag('input', $modalwriter->modalid . '__hdn_' . 'filters', '','', array('type'=>'hidden') );
+    $formcontent .= $modalwriter->createLine('', array('style'=>'margin-bottom:15px !important; margin-top:5px !important;'));
+    $formcontent .= $modalwriter->createFormSelectBasic('MODAL-ADD_DATASET_SELECT_FILTER', 'list_filters', null,array('size'=>'5'));
+
+    $button = $modalwriter->createButton('MODAL-ADD_DATASET_BTN_ADD_FILTER', 'adddsfilter', 'btn btn-primary', array('style' => 'width:20% !important; height:40px;'));//, 'disabled' => 'false'));
+    $button .= $modalwriter->createButton('MODAL-ADD_DATASET_BTN_EDIT_FILTER', 'editdsfilter', 'btn btn-primary', array('style' => 'width:20% !important; height:40px;', 'disabled' => ''));
+    $button .= $modalwriter->createButton('MODAL-ADD_DATASET_BTN_DEL_FILTER', 'deldsfilter', 'btn btn-primary', array('style' => 'width:20% !important; height:40px;', 'disabled' => ''));
+    $formcontent .= $modalwriter->tag('div', '', 'row', $button, array('style' => 'margin-left:155px; margin-top: 5px;'));
 
     $bodybegin  = $modalwriter->tag('div', '', 'col-md-18 centered', $formcontent);
 

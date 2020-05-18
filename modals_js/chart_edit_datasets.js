@@ -21,7 +21,6 @@
 // On load //
     $('#modal_chartds').on('show.bs.modal', function (e) {
 
-
         var s = $('#modal_chartds').val();
 
         if(s === '') {
@@ -31,9 +30,7 @@
         else  {
             var dsval = $('#modal_addchart__sel_list_datasets').val();
             parse_json_from_textbox(dsval);
-
         }
-
         getThemes('modal_chartds__sel_theme');
     });
 
@@ -49,14 +46,52 @@ $('#modal_chartds').on('shown.bs.modal', function (e) {
 $(document).ready(function() {
     $('#modal_chartds__sel_dataconnection').change(function () {
         $('#modal_chartds__sel_labelvalue, #modal_chartds__sel_sumvalue,#modal_chartds__sel_tablevalue').empty();
+
+        $('#modal_chartds__hdn_filters').val("");
+        add_json_to_filters();
+
         if ($('#modal_chartds__sel_dataconnection').val() == 0) { return; }
-        getTables('modal_chartds__sel_tablevalue',$("#modal_chartds__sel_dataconnection").val() )
+        getTables('modal_chartds__sel_tablevalue',$("#modal_chartds__sel_dataconnection").val());
     });
 
     $('#modal_chartds__sel_tablevalue').change(function () {
         getAllColumns('modal_chartds__sel_labelvalue', $("#modal_chartds__sel_dataconnection").val() , $("#modal_chartds__sel_tablevalue").val());
         getSumColumns('modal_chartds__sel_sumvalue', $("#modal_chartds__sel_dataconnection").val() , $("#modal_chartds__sel_tablevalue").val());
+        $('#modal_chartds__hdn_filters').val("");
+        add_json_to_filters();
     });
+
+    $('#modal_chartds__btn_adddsfilter').click( function() {
+        const modal_ads = $('#modal_filters');
+        modal_ads.modal('show');
+        return false;
+    });
+
+    $('#modal_chartds__btn_editdsfilter').click( function() {
+        const dsval = $('#modal_chartds__sel_list_filters').val();
+        if (!(dsval == null || dsval === '' )){
+            const modal_ads = $('#modal_filters');
+            $('#modal_filters').val(dsval);
+            modal_ads.modal('show');
+        }
+        return false;
+    });
+
+    $('#modal_chartds__btn_deldsfilter').click( function() {
+        const dsval = $('#modal_chartds__sel_list_filters').val();
+        if (!(dsval == null || dsval === '' )){
+            tempdsvalues = delValfromJSONstring($('#modal_chartds__hdn_filters').val(),dsval);
+            $('#modal_chartds__hdn_filters').val(tempdsvalues);
+            add_json_to_filters();
+        }
+        return false;
+    });
+
+    $('#modal_chartds__sel_list_filters').change(function () {
+        $('#modal_chartds__btn_editdsfilter').prop('disabled', $('#modal_chartds__sel_list_filters').val() == null);
+        $('#modal_chartds__btn_deldsfilter').prop('disabled', $('#modal_chartds__sel_list_filters').val() == null);
+    });
+
 });
 
 
@@ -74,6 +109,9 @@ $(document).ready(function() {
         var sumcols = datasetoptions['sumvalue'];
         var themeval = datasetoptions['theme'];
         var sumtype = datasetoptions['aggregation'];
+        var filters = datasetoptions['filters'];
+        $('#modal_chartds__hdn_filters').val(filters);
+        add_json_to_filters();
 
         getDataConnections('modal_chartds__sel_dataconnection', datacon);
         getTables('modal_chartds__sel_tablevalue',datacon,tablename);
@@ -134,6 +172,8 @@ $(document).ready(function() {
             fname = (this.id).split(/[_ ]+/).pop();
             dset[fname] = $(this).val();
         });
+
+        dset["filters"] =  $("[id^='modal_chartds__hdn_filters']").val();
 
         var editIndex = $('#modal_chartds').val();
 
@@ -235,4 +275,22 @@ $(document).ready(function() {
 
     function setAggregatemethod(mTarget, pickVal = ''){
         if ( pickVal !== '') $('#' + mTarget).val(pickVal);
+    }
+
+    function add_json_to_filters() {
+
+        const filteroptions = $('#modal_chartds__hdn_filters').val() ?  JSON.parse($('#modal_chartds__hdn_filters').val()) : JSON.parse("[]");
+
+        $('#modal_chartds__sel_list_filters').empty();
+
+        $.each(filteroptions, function (index, value) {
+            equatorIdx =  ["EQUAL","LESSTHAN", "GREATERTHAN", "LESSTHANEQUAL", "GREATERTHANEQUAL", "NOTEQUAL", "EMPTY"].indexOf(value['filterequator']);
+            equatorvalue = ["=","<", ">", "<=", ">=", "!=", "NULL"][equatorIdx];
+
+            $('#modal_chartds__sel_list_filters').append($('<option>', {
+                value: index,
+                text: value['tablefield'] + ' ' + equatorvalue + ' \"' +  value['filtervalue'] + '\"'
+            }));
+        });
+        $('#modal_chartds__sel_list_filters').trigger('change');
     }

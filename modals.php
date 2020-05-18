@@ -22,6 +22,7 @@ echo '<link rel="stylesheet" href="css/modal.css">';
 if(has_permission('addeditchart')) {
     include('modals/chart_edit.php');
     include('modals/chart_edit_datasets.php');
+    include('modals/chart_edit_datasets_filters.php');
 }
 
 if(has_permission('addedithtml')) {

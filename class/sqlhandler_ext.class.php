@@ -84,7 +84,11 @@ class sqlhandler_ext
             if ($wherestatement !== '') {
                 $wherestatement .= ' AND ';
             }
-            $wherestatement .= "`" . $tablename . "`." . $key . "='" . $value . "'";
+            $equatorIdx = array_search($value->filterequator,  ["EQUAL","LESSTHAN", "GREATERTHAN", "LESSTHANEQUAL", "GREATERTHANEQUAL", "NOTEQUAL", "EMPTY"]);
+            $equatorvalue = ["=","<", ">", "<=", ">=", "!=", "IS NULL"][$equatorIdx];
+
+            $wherestatement .= "`" . $tablename . "`.`" . $value->tablefield . "` " . $equatorvalue;
+            $wherestatement .= $equatorvalue != "IS NULL" ? "'" . $value->filtervalue . "'" : "";
         }
 
         $sql_line = "SELECT " . $colstatement . " FROM `" . $tablename . "` ";

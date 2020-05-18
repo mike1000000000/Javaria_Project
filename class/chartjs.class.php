@@ -103,7 +103,9 @@ class chartjs
                 $colarray['labels'] = $dataset->labelvalue;
                 $colarray['values'] = $dataset->sumvalue;
 
-                $pass_sql = sqlhandler_ext::parseReturnExtSQLfromarray($dataset->tablevalue,$colarray,$dataset->aggregation);
+                $wherearray = json_decode($dataset->filters);
+
+                $pass_sql = sqlhandler_ext::parseReturnExtSQLfromarray($dataset->tablevalue,$colarray,$dataset->aggregation,$wherearray);
 
                 $this->getDatafromOptions($dataset->dataconnection, $pass_sql,$temparray);
             }
